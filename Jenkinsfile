@@ -18,7 +18,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-		sh 'mvn package deploy'    
+		sh 'mvn package deploy' 
+		deploy adapters: [tomcat7(credentialsId: 'deploy', path: '', url: 'http://54.81.236.100:9090/')], contextPath: 'calculate', onFailure: false, war: '**/*.war'
             }
         }
     }
